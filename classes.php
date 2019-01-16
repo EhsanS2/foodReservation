@@ -10,15 +10,18 @@ class user {
     private $user_id;
     private $permission;
     private $password;
-    public function setName($name) {$this->name = $name;}
-    public function setPass($pass) {$this->password = $pass;}
-    public function setUser_id($id) {$this->name = $id;}
-    public function setPermission($permission) {$this->permission = $permission;}
     public function getName() {return $this->name;}
     public function getPass() {return $this->password;}
     public function getUser_id() {return $this->user_id;}
     public function getPermission() {return $this->permission;}
-    
+    function __construct($id, $pass, $name, $per)
+    {
+        $this->user_id = $id;
+        $this->password = $pass;
+        $this->name = $name;
+        $this->permission = $per;
+    }
+
 }
 
 

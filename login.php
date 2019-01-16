@@ -10,7 +10,6 @@ require_once "classes.php";
 
 $text = ""; //for showing a message to user
 if(isset($_POST['user'])) {
-    $tmpUser = new user();
     $userId = $_POST['user'];
     $userPass = $_POST['pass'];
     $statement = $conn->prepare("SELECT * from users where user_id=:userid");
@@ -18,9 +17,7 @@ if(isset($_POST['user'])) {
     $result = $statement->fetchAll();
     if(!empty($result)) { //query returns a result
         foreach ($result as $e) {
-            $tmpUser->setPass($e['password']);
-            $tmpUser->setName($e['name']);
-            $tmpUser->setPermission($e['permission']);
+            $tmpUser = new user($e['user_id'], $e['password'], $e['name'], $e['permission']);
         }
         if ($userPass == $tmpUser->getPass()) { //password is correct
             $text = "You are successfully logged in";
