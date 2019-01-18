@@ -24,6 +24,36 @@ class user {
 
 }
 
+class db {
+    private $database;
+    private $host;
+    private $user;
+    private $password;
+    function __construct($db, $host, $user, $pass) {
+        $this->database = $db;
+        $this->host = $host;
+        $this->user = $user;
+        $this->password = $pass;
+    }
+    public function dbConnect() {
+        try {
+            $conn = new PDO("mysql:host=$this->host;dbname=$this->database", $this->user, $this->password);
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(PDOException $e)
+        {
+            echo "Connection failed: " . $e->getMessage();
+        }
+        return $conn;
+    }
+    public function queryExecute($query, $conn) {
+        $st = $conn->prepare($query);
+        $st->execute();
+        $result = $st->fetchAll();
+        return $result;
+    }
+}
 
 
 

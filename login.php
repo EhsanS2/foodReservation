@@ -5,18 +5,22 @@
  * Date: 12/11/2018
  * Time: 11:16 AM
  */
-require_once "config.php";
+//require_once "config.php";
 require_once "classes.php";
 
+$dbase = new db("onlinefood", "localhost", "root", "");
+$con=$dbase.dbConnect();
 $text = ""; //for showing a message to user
 if(isset($_POST['user'])) {
     $userId = $_POST['user'];
     $userPass = $_POST['pass'];
-    $statement = $conn->prepare("SELECT * from users where user_id=:userid");
-    $statement->execute(['userid' => $userId]);
-    $result = $statement->fetchAll();
-    if(!empty($result)) { //query returns a result
-        foreach ($result as $e) {
+    $query = "SELECT * from users where user_id=" . $userId;
+    $rs=$dbase.queryExecute($query, $con);
+    //$statement = $conn->prepare("SELECT * from users where user_id=:userid");
+    //$statement->execute(['userid' => $userId]);
+    //$result = $statement->fetchAll();
+    if(!empty($rs)) { //query returns a result
+        foreach ($rs as $e) {
             $tmpUser = new user($e['user_id'], $e['password'], $e['name'], $e['permission']);
         }
         if ($userPass == $tmpUser->getPass()) { //password is correct
