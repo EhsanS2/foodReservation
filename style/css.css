@@ -1,0 +1,21 @@
+.lightblue {
+    background-color: lightblue;
+}
+.lightgreen {
+    background-color: lightgreen;
+}
+.pink {
+    background-color: pink;
+}
+.footer {
+    height: 10%;
+}
+.body {
+    height: 70%;
+}
+.header {
+    height: 20%;
+}
+body {
+    overflow-x: hidden;
+}

@@ -35,7 +35,7 @@ class db {
         $this->user = $user;
         $this->password = $pass;
     }
-    public function dbConnect() {
+ /*   public function dbConnect() {
         try {
             $conn = new PDO("mysql:host=$this->host;dbname=$this->database", $this->user, $this->password);
             // set the PDO error mode to exception
@@ -52,7 +52,8 @@ class db {
         $st->execute();
         $result = $st->fetchAll();
         return $result;
-    }
+
+    }*/
 }
 
 
