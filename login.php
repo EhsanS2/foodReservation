@@ -5,7 +5,8 @@
  * Date: 12/11/2018
  * Time: 11:16 AM
  */
-//require_once "config.php";
+session_start();
+
 require_once "classes.php";
 require_once "config.php";
 
@@ -22,7 +23,6 @@ if(isset($_POST['user'])) {
         }
         if ($userPass == $tmpUser->getPass()) { //password is correct
             $text = "You are successfully logged in";
-            session_start();
             $_SESSION['user-id'] = $tmpUser->getUser_id();
             $_SESSION['name'] = $tmpUser->getName();
             $_SESSION['permission'] = $tmpUser->getPermission();
@@ -36,7 +36,6 @@ if(isset($_POST['user'])) {
         $text = "This user has already not registered";
     }
 }
-
 
 ?>
 
@@ -52,7 +51,7 @@ if(isset($_POST['user'])) {
             <p>Username : <input type="text" name="user" ></p>
             <p>Password : <input type="password" name="pass" ></p>
             <p><input type="submit" ></p>
-            <p><?php echo $text ?></p>
+            <p><?php echo $text; ?></p>
         </form>
     </div>
 </div>
