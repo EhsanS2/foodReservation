@@ -16,8 +16,9 @@ if(isset($_SESSION['user-id'])) {
         }
     }
 } else {
-    header("refresh:3, url=login.php");
     echo "You have not logged in yet";
+    header("refresh:3, url=login.php");
+    exit;
 }
 ?>
 <html>

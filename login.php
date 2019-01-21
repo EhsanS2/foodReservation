@@ -8,15 +8,14 @@
 session_start();
 
 require_once "classes.php";
-require_once "config.php";
 
 $text = ""; //for showing a message to user
 if(isset($_POST['user'])) {
+    $db = new dBase();
+    $db->connect();
     $userId = $_POST['user'];
     $userPass = $_POST['pass'];
-    $statement = $conn->prepare("SELECT * from users where user_id=:userid");
-    $statement->execute(['userid' => $userId]);
-    $result = $statement->fetchAll();
+    $result = $db->getUser($userId);
     if(!empty($result)) { //query returns a result
         foreach ($result as $e) {
             $tmpUser = new user($e['user_id'], $e['password'], $e['name'], $e['permission']);
@@ -28,6 +27,7 @@ if(isset($_POST['user'])) {
             $_SESSION['permission'] = $tmpUser->getPermission();
             $text = $text . " " . $_SESSION['name'];
             header("refresh:3, url=index.php"); //redirect to index.php after 3 seconds
+            exit;
         } else { // password is incorrect
             $text = "Incorrect password";
         }

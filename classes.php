@@ -42,37 +42,27 @@ class user
 }
 
 
-/*class db {
-   private $database;
-   private $host;
-   private $user;
-   private $password;
-   function __construct($db, $host, $user, $pass) {
-       $this->database = $db;
-       $this->host = $host;
-       $this->user = $user;
-       $this->password = $pass;
-   }
-  public function dbConnect() {
-       try {
-           $conn = new PDO("mysql:host=$this->host;dbname=$this->database", $this->user, $this->password);
-           // set the PDO error mode to exception
-           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-       }
-       catch(PDOException $e)
-       {
-           echo "Connection failed: " . $e->getMessage();
-       }
-       return $conn;
-   }
-   public function queryExecute($query, $conn) {
-       $st = $conn->prepare($query);
-       $st->execute();
-       $result = $st->fetchAll();
-       return $result;
+class dBase {
+    private $connection;
 
-   }*/
+    public function connect() {
+        $this->connection = new PDO("mysql:host=localhost;dbname=onlineFood", "root", NULL);
+    }
+    public function getUser($user) {
+        $statement = $this->connection->prepare ("SELECT * FROM users WHERE user_id=:userid");
+        $statement->execute(['userid' => $user]);
+        return $statement->fetchAll();
+    }
+    public function addUser($id, $name, $pass, $per) {
+        $statement = $this->connection->prepare ("INSERT INTO users(user_id, name, password, permission) VALUES ($id, $name, $pass, $per)");
+        $statement->execute();
+    }
+    function __construct()
+    {
+        $this->connect();
+    }
 
+}
 
 
 
