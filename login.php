@@ -12,7 +12,6 @@ require_once "classes.php";
 $text = ""; //for showing a message to user
 if(isset($_POST['user'])) {
     $db = new dBase();
-    $db->connect();
     $userId = $_POST['user'];
     $userPass = $_POST['pass'];
     $result = $db->getUser($userId);

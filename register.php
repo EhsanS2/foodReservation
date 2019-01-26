@@ -32,7 +32,13 @@ if(isset($_POST['user'])) {
         $_VALID = False;
     }
     if($_VALID) {
-        $db->addUser($userId, $userName, $userPass, 0);
+        $data = [
+                'id' => $userId,
+                'name'=> $userName,
+                'pass'=> $userPass,
+                'per'=>0,
+            ];
+        $db->addUser($data);
         $text = "You have successfully registered!";
         header("refresh:3, url:login.php");
     }
