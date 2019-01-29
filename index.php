@@ -4,17 +4,10 @@ $flg=0;
 if(isset($_SESSION['user-id'])) {
     $flg = 1;
     $user = $_SESSION['user-id'];
-    require_once 'config.php';
     require_once 'classes.php';
-    $statement = $conn->prepare("SELECT * from users where user_id=:userid");
-    $statement->execute(['userid' => $user]);
-    $result = $statement->fetchAll();
-    if(!empty($result)) {
-        foreach ($result as $e) {
-            $tmpUser = new user($e['user_id'], $e['password'], $e['name'], $e['permission']);
-            echo "salam salam";
-        }
-    }
+    require_once 'library.php';
+    $db = new dBase();
+    $tmpUser = callFromDb($db, $user);
 } else {
     echo "You have not logged in yet";
     header("refresh:3, url=login.php");

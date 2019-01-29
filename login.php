@@ -8,17 +8,15 @@
 session_start();
 
 require_once "classes.php";
+require_once "library.php";
 
 $text = ""; //for showing a message to user
 if(isset($_POST['user'])) {
     $db = new dBase();
     $userId = $_POST['user'];
     $userPass = $_POST['pass'];
-    $result = $db->getUser($userId);
-    if(!empty($result)) { //query returns a result
-        foreach ($result as $e) {
-            $tmpUser = new user($e['user_id'], $e['password'], $e['name'], $e['permission']);
-        }
+    $tmpUser = callFromDb($db, $userId);
+    if($tmpUser) {
         if ($userPass == $tmpUser->getPass()) { //password is correct
             $text = "You are successfully logged in";
             $_SESSION['user-id'] = $tmpUser->getUser_id();

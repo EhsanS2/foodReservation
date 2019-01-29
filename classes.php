@@ -16,28 +16,30 @@ class user
     {
         return $this->name;
     }
-
     public function getPass()
     {
         return $this->password;
     }
-
     public function getUser_id()
     {
         return $this->user_id;
     }
-
     public function getPermission()
     {
         return $this->permission;
     }
-
     function __construct($id, $pass, $name, $per)
     {
         $this->user_id = $id;
         $this->password = $pass;
         $this->name = $name;
         $this->permission = $per;
+    }
+    public function isAdmin() {
+        if ($this->permission == 1) {
+            return True;
+        }
+        return False;
     }
 }
 
@@ -53,9 +55,9 @@ class dBase {
         $statement->execute(['userid' => $user]);
         return $statement->fetchAll();
     }
-    public function addUser($data) {
+    public function addUser($data) { //data is an array of variables which is gonna store in DB
         $statement = $this->connection->prepare("INSERT INTO users(user_id, name, password, permission) 
-                                                            VALUES (:id, :name, :pass, :per)");
+                                                 VALUES (:id, :name, :pass, :per)");
         $statement->execute($data);
     }
     function __construct()
