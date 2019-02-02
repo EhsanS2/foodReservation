@@ -6,7 +6,8 @@
  * Time: 11:16 AM
  */
 
-require_once "classes.php";
+require_once "library.php";
+autoload1();
 
 $_VALID = True;
 $text = ""; //for showing a message to user

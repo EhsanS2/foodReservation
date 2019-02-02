@@ -4,8 +4,8 @@ $flg=0;
 if(isset($_SESSION['user-id'])) {
     $flg = 1;
     $user = $_SESSION['user-id'];
-    require_once 'classes.php';
     require_once 'library.php';
+    autoload1();
     $db = new dBase();
     $tmpUser = callFromDb($db, $user);
 } else {
