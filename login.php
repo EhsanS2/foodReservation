@@ -23,7 +23,7 @@ if(isset($_POST['user'])) {
             $_SESSION['name'] = $tmpUser->getName();
             $_SESSION['permission'] = $tmpUser->getPermission();
             $text = $text . " " . $_SESSION['name'];
-            header("refresh:3, url=index.php"); //redirect to index.php after 3 seconds
+            header("refresh:3, url=reserve.php"); //redirect to index.php after 3 seconds
             exit;
         } else { // password is incorrect
             $text = "Incorrect password";

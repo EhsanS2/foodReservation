@@ -19,3 +19,6 @@
 body {
     overflow-x: hidden;
 }
+.day {
+    padding: 5px 0 5px 0;
+}
